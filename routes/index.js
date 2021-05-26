@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
-const GitCrawler = require('./gitCrawler'); 
+const gitCrawler = require('./gitCrawler'); 
+const user = require('./user');
 
-router.use('/git-crawler', GitCrawler); //router.use({api url}, {var name})
+router.use('/git-crawler', gitCrawler); 
+router.use('/users', user); 
 
 router.get('/', function(req, res, next) {
     res.send('hello world!')

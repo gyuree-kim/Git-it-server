@@ -5,10 +5,10 @@ var express = require('express');
 var router = express.Router();
 
 // 잔디에서 커밋 데이터 크롤링
-var userName = 'gyuree-kim';
-const homeUrl = 'https://github.com/'.concat(userName);
 router.get('/', function(req, res) {
-    request(homeUrl, function(err, res, html) {
+    var userName = req.body.userName;
+    const homeUrl = 'https://github.com/'.concat(userName);
+        request(homeUrl, function(err, res, html) {
         if(err)
         {
             console.log("error");
@@ -38,8 +38,7 @@ router.get('/', function(req, res) {
             else 
             {
                 console.log(crawledCommits);
-                // res.status(200).json("crawled!");
-                // res.send(crawledCommits);
+                res.send(crawledCommits);
             }
             // console.log(data);
         } 
