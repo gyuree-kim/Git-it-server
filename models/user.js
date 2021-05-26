@@ -8,7 +8,7 @@ const user = new Schema({
   totalCommits: Number, // commits for a year
   average: Number,  // totalCommits/365
   streak: Number, // consecutive days
-  friends: [this],
+  friends: [{type: String, ref: this}],
   rank: Number, // rank of shcool
   image: { data: Buffer, contentType: String} // profile image
 });
