@@ -21,7 +21,7 @@ const port = process.env.PORT || 8000;
 app.use('/api', router);
 
 // DB를 연결하는 부분
-const url = "mongodb://localhost:27017"
+const url = "mongodb://localhost:27017/GIT-IT"
 const db = mongoose.connection;
 db.on('error', console.error);
 db.once('open', function(){
