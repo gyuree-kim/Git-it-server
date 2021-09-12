@@ -42,4 +42,17 @@ router.get('/userName/:userName/friends', (req, res) => {
   })
 })
 
+// get totalCommits by userName
+router.get('/userName/:userName/totalCommits', (req, res) => {
+  const filter = {userName: req.params.userName};
+  User.findOne(filter).select('totalCommits').exec((err, totalCommits) => {
+    if(err) res.status(500).json({error: `db failure`});
+    if(!totalCommits) res.status(404).json({msg: `totalCommits not found`});
+    else {
+      console.log('get total commits by userName 성공');
+      return res.status(200).json(totalCommits);
+    }
+  })
+})
+
 module.exports = router;
