@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 const User = require('../models/user.js');
+const Stats = require('../models/stats.js');
 
 // get all users
 router.get('/', (req, res) => {
@@ -43,14 +44,21 @@ router.get('/userName/:userName/friends', (req, res) => {
 })
 
 // get totalCommits by userName
-router.get('/userName/:userName/totalCommits', (req, res) => {
+router.get('/userName/:userName/stats', (req, res) => {
   const filter = {userName: req.params.userName};
-  User.findOne(filter).select('totalCommits').exec((err, totalCommits) => {
+  User.findOne(filter).select('statsId').exec((err, statsId) => {
     if(err) res.status(500).json({error: `db failure`});
-    if(!totalCommits) res.status(404).json({msg: `totalCommits not found`});
+    if(!totalCommits) res.status(404).json({msg: `stats not found`});
     else {
-      console.log('get total commits by userName 성공');
-      return res.status(200).json(totalCommits);
+      console.log('get stats by userName 성공');
+      Stats.findOne({_id: statsId}, (err, stats) => {
+        if(err) res.status(500).json({error: `db failure`});
+        if(!stats) res.status(404).json({msg: `user not found`});
+        else {
+          console.log('find stats by userName 성공');
+          return res.status(200).json(stats);
+        }
+      })
     }
   })
 })
